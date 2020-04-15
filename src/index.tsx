@@ -1,11 +1,31 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import emotionReset from 'emotion-reset'
+import { Global, css } from '@emotion/core'
+
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <React.StrictMode>
+    <Global
+      styles={css`
+        ${emotionReset}
+
+        body {
+          box-sizing: border-box;
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+            'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        code {
+          font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+        }
+      `}
+    />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
