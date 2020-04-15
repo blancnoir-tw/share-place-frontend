@@ -15,7 +15,7 @@
   },
   "ignorePatterns": ["node_modules/", "src/serviceWorker.ts", "src/**/*.test.tsx"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true, "semi": false, "printWidth": 120 }]
+    "prettier/prettier": ["error", { "singleQuote": true, "semi": false, "printWidth": 120, "arrowParens": "avoid" }]
   },
   "settings": {
     "react": {
