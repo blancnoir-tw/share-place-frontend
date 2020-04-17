@@ -1,24 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '../../styled'
 import { Link } from 'react-router-dom'
 import { FaBars } from 'react-icons/fa'
 
 import MainHeader from './MainHeader'
 import NavLinks from './NavLinks'
+import SideDrawer from './SideDrawer'
+import BackDrop from './Backdrop'
 
 const MainNavigation = () => {
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false)
+
+  const openDrawer = () => {
+    setDrawerIsOpen(true)
+  }
+
+  const closeDrawer = () => {
+    setDrawerIsOpen(false)
+  }
+
   return (
-    <MainHeader>
-      <Button>
-        <FaBars color="#fafafa" size="1.4rem" />
-      </Button>
-      <Title>
-        <Link to="/">Share Place Demo</Link>
-      </Title>
-      <Nav>
-        <NavLinks />
-      </Nav>
-    </MainHeader>
+    <React.Fragment>
+      {drawerIsOpen && (
+        <React.Fragment>
+          <BackDrop onClick={closeDrawer} />
+          <SideDrawer>
+            <NavLinks />
+          </SideDrawer>
+        </React.Fragment>
+      )}
+      <MainHeader>
+        <Button onClick={openDrawer}>
+          <FaBars color="#fafafa" size="1.4rem" />
+        </Button>
+        <Title>
+          <Link to="/">Share Place Demo</Link>
+        </Title>
+        <Nav>
+          <NavLinks />
+        </Nav>
+      </MainHeader>
+    </React.Fragment>
   )
 }
 
