@@ -11,26 +11,22 @@ import BackDrop from './Backdrop'
 const MainNavigation = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false)
 
-  const openDrawer = () => {
+  const openDrawerHandler = () => {
     setDrawerIsOpen(true)
   }
 
-  const closeDrawer = () => {
+  const closeDrawerHandler = () => {
     setDrawerIsOpen(false)
   }
 
   return (
     <React.Fragment>
-      {drawerIsOpen && (
-        <React.Fragment>
-          <BackDrop onClick={closeDrawer} />
-          <SideDrawer>
-            <NavLinks />
-          </SideDrawer>
-        </React.Fragment>
-      )}
+      {drawerIsOpen && <BackDrop onClick={closeDrawerHandler} />}
+      <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
+        <NavLinks />
+      </SideDrawer>
       <MainHeader>
-        <Button onClick={openDrawer}>
+        <Button onClick={openDrawerHandler}>
           <FaBars color="#fafafa" size="1.4rem" />
         </Button>
         <Title>
@@ -77,10 +73,6 @@ const Nav = styled.nav`
   @media (min-width: 768px) {
     display: block;
   }
-`
-
-const Drawer = styled.div`
-  height: 100%;
 `
 
 export default MainNavigation
