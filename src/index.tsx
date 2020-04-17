@@ -1,3 +1,5 @@
+import 'typeface-noto-sans'
+import 'typeface-ubuntu'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import emotionReset from 'emotion-reset'
@@ -14,12 +16,14 @@ ReactDOM.render(
       styles={css`
         ${emotionReset}
 
-        body {
+        * {
           box-sizing: border-box;
+        }
+
+        body {
           color: #333;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-            'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          font-family: 'Ubuntu', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
