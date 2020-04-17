@@ -2,37 +2,17 @@ import 'typeface-noto-sans'
 import 'typeface-ubuntu'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import emotionReset from 'emotion-reset'
-import { Global, css } from '@emotion/core'
+import { Global } from '@emotion/core'
 import { ThemeProvider } from 'emotion-theming'
 
 import { theme } from './styled'
+import { styles } from './globalStyle'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Global
-      styles={css`
-        ${emotionReset}
-
-        * {
-          box-sizing: border-box;
-        }
-
-        body {
-          color: #333;
-          font-family: 'Ubuntu', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-            'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-
-        code {
-          font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-        }
-      `}
-    />
+    <Global styles={styles} />
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
