@@ -13,6 +13,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.4",
+    "@types/react-transition-group": "^4.2.4",
     "emotion-reset": "^2.0.7",
     "emotion-theming": "^10.0.27",
     "react": "^16.13.1",
@@ -20,6 +21,7 @@
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-transition-group": "^4.3.0",
     "typeface-noto-sans": "^0.0.72",
     "typeface-ubuntu": "^0.0.65",
     "typescript": "~3.7.2"
