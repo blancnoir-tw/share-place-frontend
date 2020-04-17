@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from '../../styled'
 
 import { User } from '../types'
 import UserItem from './UserItem'

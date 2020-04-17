@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from '../../styled'
 import { Link } from 'react-router-dom'
 
 import { User } from '../types'
@@ -33,20 +33,19 @@ const List = styled.li`
     align-items: center;
     text-decoration: none;
     padding: 1rem;
-    color: #fafafa;
-    background: #333;
+    color: ${props => props.theme.color.black};
   }
 
   a:hover,
   a:active {
-    background: #ec407a;
+    background: ${props => props.theme.color.secondary.light};
   }
 
   :hover h2,
   :active h2,
   :hover h3,
   :active h3 {
-    color: #fafafa;
+    color: ${props => props.theme.color.white};
   }
 `
 
@@ -57,7 +56,7 @@ const ListInfo = styled.div`
 const ListName = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #ec407a;
+  color: ${props => props.theme.color.secondary.main};
 `
 
 export default UserItem
