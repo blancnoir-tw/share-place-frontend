@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import styled from '../../styled'
+import styled from '../../../styled'
 import { Link } from 'react-router-dom'
 import { FaBars } from 'react-icons/fa'
 
 import MainHeader from './MainHeader'
 import NavLinks from './NavLinks'
 import SideDrawer from './SideDrawer'
-import BackDrop from './Backdrop'
+import BackDrop from '../UIElements/Backdrop'
 
 const MainNavigation = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false)

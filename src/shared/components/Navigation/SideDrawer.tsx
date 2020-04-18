@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
-import styled from '../../styled'
+import styled from '../../../styled'
 
 type Props = {
   children: ReactNode

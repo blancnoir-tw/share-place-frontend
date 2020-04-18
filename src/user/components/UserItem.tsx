@@ -3,8 +3,8 @@ import styled from '../../styled'
 import { Link } from 'react-router-dom'
 
 import { User } from '../types'
-import Avator from '../../shared/components/Avator'
-import Card from '../../shared/components/Card'
+import Avator from '../../shared/components/UIElements/Avator'
+import Card from '../../shared/components/UIElements/Card'
 
 const UserItem = ({ id, image, name, placeCount }: User) => {
   return (

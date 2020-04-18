@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '../../styled'
+import styled from '../../../styled'
 import { NavLink } from 'react-router-dom'
 
 const NavLinks = () => {
