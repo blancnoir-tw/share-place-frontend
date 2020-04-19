@@ -34,9 +34,13 @@ export const theme = {
       main: '#4caf50',
       dark: '#388e3c',
     },
+    disabled: {
+      background: '#cccccc',
+      text: '#999999',
+    },
   },
 }
 
-type Theme = typeof theme
+export type Theme = typeof theme
 
 export default styled as CreateStyled<Theme>
