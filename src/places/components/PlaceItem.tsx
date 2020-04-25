@@ -6,6 +6,7 @@ import { Place } from '../types'
 import Card from '../../shared/components/UIElements/Card'
 import Button from '../../shared/components/FormElements/Button'
 import Modal from '../../shared/components/UIElements/Modal'
+import Map from '../../shared/components/UIElements/Map'
 
 const PlaceItem = (props: Place) => {
   const [showMap, setShowMap] = useState(false)
@@ -28,7 +29,7 @@ const PlaceItem = (props: Place) => {
         footerAlign="right"
       >
         <ModalContent>
-          <h2>THE MAP!!</h2>
+          <Map center={props.location} zoom={16}></Map>
         </ModalContent>
       </Modal>
       <Item>
