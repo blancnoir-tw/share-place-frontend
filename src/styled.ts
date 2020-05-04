@@ -4,6 +4,11 @@ export const theme = {
   color: {
     white: '#fafafa',
     black: '#333333',
+    gray: {
+      light: '#eeeeee',
+      main: '#cccccc',
+      dark: '#999999',
+    },
     primary: {
       light: '#4f5b62',
       main: '#263238',
