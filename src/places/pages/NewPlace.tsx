@@ -1,58 +1,14 @@
-import React, { useCallback, useReducer } from 'react'
-import styled from '../../styled'
+import React from 'react'
 
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/utils/validator'
 import Input from '../../shared/components/FormElements/Input'
 import Button from '../../shared/components/FormElements/Button'
-
-type InputId = 'title' | 'description'
-
-type State = {
-  inputs: {
-    [inputId in InputId]: {
-      value: string
-      isValid: boolean
-    }
-  }
-  isValid: boolean
-}
-
-type Action = {
-  type: 'INPUT_CHANGE'
-  inputId: string
-  isValid: boolean
-  value: string
-}
-
-const formReducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case 'INPUT_CHANGE':
-      let formIsValid = true
-      const inputIdArray = Object.keys(state.inputs) as InputId[]
-      inputIdArray.forEach(inputId => {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid
-        }
-      })
-
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid },
-        },
-        isValid: formIsValid,
-      }
-    default:
-      return state
-  }
-}
+import Form from '../../shared/components/FormElements/Form'
+import { useForm } from '../../shared/hooks/form-hook'
 
 const NewPlace = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
+  const { formState, inputHandler } = useForm(
+    {
       title: {
         value: '',
         isValid: false,
@@ -61,13 +17,13 @@ const NewPlace = () => {
         value: '',
         isValid: false,
       },
+      address: {
+        value: '',
+        isValid: false,
+      },
     },
-    isValid: false,
-  })
-
-  const inputHandler = useCallback((id: string, value: string, isValid: boolean) => {
-    dispatch({ type: 'INPUT_CHANGE', value, isValid, inputId: id })
-  }, [])
+    false
+  )
 
   const placeSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -108,17 +64,5 @@ const NewPlace = () => {
     </Form>
   )
 }
-
-const Form = styled.form`
-  position: relative;
-  list-style: none;
-  margin: 0 auto;
-  padding: 1rem;
-  width: 90%;
-  max-width: 40rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 6px;
-  background: white;
-`
 
 export default NewPlace
