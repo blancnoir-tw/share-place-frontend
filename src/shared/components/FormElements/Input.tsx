@@ -14,6 +14,8 @@ type Props = {
   errorText?: string
   validators: Validator[]
   onInput: (id: string, value: string, isvalid: boolean) => void
+  initialValue?: string
+  initialValid?: boolean
 }
 
 type State = {
@@ -43,16 +45,21 @@ const inputReducer = (state: State, action: Action) => {
   }
 }
 
-const Input = ({ id, label, element, placeholder, type, rows, errorText, validators, onInput }: Props) => {
-  const [inputState, dispatch] = useReducer(inputReducer, { value: '', isValid: false, isTouched: false })
+const Input = (props: Props) => {
+  const [inputState, dispatch] = useReducer(inputReducer, {
+    value: props.initialValue || '',
+    isValid: props.initialValid || false,
+    isTouched: false,
+  })
 
+  const { onInput, id } = props
   const { value, isValid } = inputState
   useEffect(() => {
     onInput(id, value, isValid)
-  }, [id, value, isValid])
+  }, [id, value, isValid, onInput])
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch({ type: 'CHANGE', val: event.target.value, validators })
+    dispatch({ type: 'CHANGE', val: event.target.value, validators: props.validators })
   }
 
   const touchHandler = () => {
@@ -60,11 +67,11 @@ const Input = ({ id, label, element, placeholder, type, rows, errorText, validat
   }
 
   const input =
-    element === 'input' ? (
+    props.element === 'input' ? (
       <StyledInput
-        id={id}
-        type={type}
-        placeholder={placeholder}
+        id={props.id}
+        type={props.type}
+        placeholder={props.placeholder}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
@@ -72,7 +79,7 @@ const Input = ({ id, label, element, placeholder, type, rows, errorText, validat
     ) : (
       <StyledTextarea
         id="id"
-        rows={rows || 3}
+        rows={props.rows || 3}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
@@ -81,9 +88,9 @@ const Input = ({ id, label, element, placeholder, type, rows, errorText, validat
 
   return (
     <Box className={`${!inputState.isValid && inputState.isTouched && 'is-invalid'}`}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={props.id}>{props.label}</Label>
       {input}
-      {!inputState.isValid && inputState.isTouched && <p>{errorText}</p>}
+      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </Box>
   )
 }

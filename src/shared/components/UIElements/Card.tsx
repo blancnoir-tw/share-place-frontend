@@ -12,6 +12,9 @@ const Card = ({ children }: Props) => {
 const Box = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  display: inline-block;
+  min-height: 6rem;
+  min-width: 20rem;
   overflow: hidden;
 `
 

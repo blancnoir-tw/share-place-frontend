@@ -3,6 +3,8 @@ import React from 'react'
 import styled from '../../styled'
 import { Place } from '../types'
 import PlaceItem from './PlaceItem'
+import Card from '../../shared/components/UIElements/Card'
+import Button from '../../shared/components/FormElements/Button'
 
 type Props = {
   places: Place[]
@@ -11,10 +13,12 @@ type Props = {
 const PlaceList = (props: Props) => {
   if (props.places.length === 0) {
     return (
-      <div>
-        <h2>No places found. Maybe create one?</h2>
-        <button>Share Place</button>
-      </div>
+      <Box>
+        <Card>
+          <CardTitle>No places found. Maybe create one?</CardTitle>
+          <Button to="/places/new">Share Place</Button>
+        </Card>
+      </Box>
     )
   }
 
@@ -35,6 +39,15 @@ const PlaceList = (props: Props) => {
     </List>
   )
 }
+
+const Box = styled.div`
+  text-align: center;
+`
+
+const CardTitle = styled.h2`
+  font-weight: bold;
+  padding: 1rem 0;
+`
 
 const List = styled.ul`
   margin: 1rem auto;
