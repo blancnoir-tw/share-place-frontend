@@ -102,6 +102,11 @@ const Footer = styled.footer`
   &.footer-right {
     text-align: right;
   }
+
+  a,
+  button {
+    margin: 0 0.5rem;
+  }
 `
 
 export default Modal
