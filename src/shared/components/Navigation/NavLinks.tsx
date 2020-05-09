@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from '../../../styled'
 import { NavLink } from 'react-router-dom'
 
+import Button from '../FormElements/Button'
+import { AuthContext } from '../../context/auth-context'
+
 const NavLinks = () => {
+  const auth = useContext(AuthContext)
+
   return (
     <List>
       <Item>
@@ -10,15 +15,28 @@ const NavLinks = () => {
           All Users
         </NavLink>
       </Item>
-      <Item>
-        <NavLink to="/u1/places">My Places</NavLink>
-      </Item>
-      <Item>
-        <NavLink to="/places/new">Add Place</NavLink>
-      </Item>
-      <Item>
-        <NavLink to="/auth">Authenticate</NavLink>
-      </Item>
+      {auth.isLoggedIn && (
+        <Item>
+          <NavLink to="/u1/places">My Places</NavLink>
+        </Item>
+      )}
+      {auth.isLoggedIn && (
+        <Item>
+          <NavLink to="/places/new">Add Place</NavLink>
+        </Item>
+      )}
+      {!auth.isLoggedIn && (
+        <Item>
+          <NavLink to="/auth">Authenticate</NavLink>
+        </Item>
+      )}
+      {auth.isLoggedIn && (
+        <Item>
+          <Logout color="is-inverse" onClick={auth.logout}>
+            LOGOUT
+          </Logout>
+        </Item>
+      )}
     </List>
   )
 }
@@ -53,6 +71,19 @@ const Item = styled.li`
 
   @media (min-width: 768px) {
     margin: 0 0.5rem;
+  }
+`
+
+const Logout = styled.button`
+  border: 1px solid transparent;
+  color: ${props => props.theme.color.white};
+  padding: 0.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  background: ${props => props.theme.color.primary.main};
+
+  :hover {
+    border-bottom-color: ${props => props.theme.color.secondary.main};
   }
 `
 
