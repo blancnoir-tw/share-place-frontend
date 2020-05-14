@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react'
 import styled from '../../../styled'
 
-type Props = {} & google.maps.MapOptions
+type Props = google.maps.MapOptions
 
-const Map = ({ center, zoom }: Props) => {
+const Map: React.FC<Props> = ({ center, zoom }) => {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -15,10 +15,10 @@ const Map = ({ center, zoom }: Props) => {
     new google.maps.Marker({ position: center, map })
   }, [center, zoom])
 
-  return <Box ref={mapRef}>TEST</Box>
+  return <MapBox ref={mapRef} />
 }
 
-const Box = styled.div`
+const MapBox = styled.div`
   height: 100%;
   width: 100%;
 `

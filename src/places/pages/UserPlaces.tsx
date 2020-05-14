@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import PlaceList from '../components/PlaceList'
 import { Place } from '../types'
+import PlaceList from '../components/PlaceList'
 
 const PLACES: Place[] = [
   {
-    id: 'p1',
+    placeId: 'p1',
     title: '東京タワー',
     description:
       '1958年に竣工された高さ333mの電波塔。東京のシンボルとして知られ、高さ150mと250mの2つの展望台と飲食施設を備える。',
@@ -20,8 +20,8 @@ const PLACES: Place[] = [
     creator: 'u1',
   },
   {
-    id: 'p2',
-    title: '東京タワー',
+    placeId: 'p2',
+    title: '東京タワー2',
     description:
       '1958年に竣工された高さ333mの電波塔。東京のシンボルとして知られ、高さ150mと250mの2つの展望台と飲食施設を備える。',
     imageUrl:
@@ -35,7 +35,7 @@ const PLACES: Place[] = [
   },
 ]
 
-const UserPlaces = () => {
+const UserPlaces: React.FC = () => {
   const { userId } = useParams()
   const loadedPlaces = PLACES.filter(place => place.creator === userId)
 

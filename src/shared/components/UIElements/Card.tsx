@@ -1,20 +1,17 @@
-import React, { ReactNode } from 'react'
+import React, { ComponentProps } from 'react'
 import styled from '../../../styled'
 
-type Props = {
-  children: ReactNode
+import Box from './Box'
+
+type Props = ComponentProps<typeof Box>
+
+const Card: React.FC<Props> = ({ children, ...boxProps }) => {
+  return <StyledBox {...boxProps}>{children}</StyledBox>
 }
 
-const Card = ({ children }: Props) => {
-  return <Box>{children}</Box>
-}
-
-const Box = styled.div`
+const StyledBox = styled(Box)`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  display: inline-block;
-  min-height: 6rem;
-  min-width: 20rem;
   overflow: hidden;
 `
 

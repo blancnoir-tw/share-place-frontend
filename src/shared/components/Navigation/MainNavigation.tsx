@@ -8,7 +8,7 @@ import NavLinks from './NavLinks'
 import SideDrawer from './SideDrawer'
 import BackDrop from '../UIElements/Backdrop'
 
-const MainNavigation = () => {
+const MainNavigation: React.FC = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false)
 
   const openDrawerHandler = () => {
@@ -63,7 +63,6 @@ const Title = styled.h1`
 
   a {
     color: ${props => props.theme.color.white};
-    text-decoration: none;
   }
 `
 

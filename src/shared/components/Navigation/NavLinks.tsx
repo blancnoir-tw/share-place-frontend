@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import styled from '../../../styled'
 import { NavLink } from 'react-router-dom'
 
-import Button from '../FormElements/Button'
 import { AuthContext } from '../../context/auth-context'
 
 const NavLinks = () => {
@@ -61,7 +60,6 @@ const Item = styled.li`
     border: 1px solid transparent;
     color: ${props => props.theme.color.white};
     padding: 0.5rem;
-    text-decoration: none;
   }
 
   a:hover,

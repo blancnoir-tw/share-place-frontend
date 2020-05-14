@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react'
-
 import styled from '../../styled'
 
 import { Place } from '../types'
+import Box from '../../shared/components/UIElements/Box'
 import Card from '../../shared/components/UIElements/Card'
 import Button from '../../shared/components/FormElements/Button'
 import Modal from '../../shared/components/UIElements/Modal'
 import Map from '../../shared/components/UIElements/Map'
 import { AuthContext } from '../../shared/context/auth-context'
 
-const PlaceItem = (props: Place) => {
+const PlaceItem: React.FC<Place> = ({ address, location, description, placeId, imageUrl, title }) => {
   const auth = useContext(AuthContext)
   const [showMap, setShowMap] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -40,13 +40,13 @@ const PlaceItem = (props: Place) => {
       <Modal
         isShow={showMap}
         onCancel={closeMapHandler}
-        header={props.address}
+        header={address}
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
         footerAlign="right"
       >
-        <ModalContent>
-          <Map center={props.location} zoom={16}></Map>
-        </ModalContent>
+        <Box height="20rem" width="100%">
+          <Map center={location} zoom={16}></Map>
+        </Box>
       </Modal>
       <Modal
         isShow={showConfirmModal}
@@ -69,24 +69,24 @@ const PlaceItem = (props: Place) => {
       <Item>
         <Card>
           <Image>
-            <img src={props.imageUrl} alt={props.title} />
+            <img src={imageUrl} alt={title} />
           </Image>
-          <Info>
-            <h2>{props.title}</h2>
-            <h3>{props.address}</h3>
-            <p>{props.description}</p>
-          </Info>
-          <Actions>
+          <Box p={1} textAlign="center">
+            <Title>{title}</Title>
+            <Address>{address}</Address>
+            <p>{description}</p>
+          </Box>
+          <StyledBox p={1} textAlign="center">
             <Button color="is-inverse" onClick={openMapHandler}>
               VIEW ON MAP
             </Button>
-            {auth.isLoggedIn && <Button to={`/places/${props.id}`}>EDIT</Button>}
+            {auth.isLoggedIn && <Button to={`/places/${placeId}`}>EDIT</Button>}
             {auth.isLoggedIn && (
               <Button color="is-danger" onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>
             )}
-          </Actions>
+          </StyledBox>
         </Card>
       </Item>
     </React.Fragment>
@@ -113,25 +113,18 @@ const Image = styled.div`
   }
 `
 
-const Info = styled.div`
-  padding: 1rem;
-  text-align: center;
-
-  h2 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  h3 {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
+const Title = styled.h2`
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 `
 
-const Actions = styled.div`
-  padding: 1rem;
-  text-align: center;
+const Address = styled.h3`
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+`
+
+const StyledBox = styled(Box)`
   border-top: 1px solid #ccc;
   display: flex;
   flex-direction: column;
@@ -145,11 +138,6 @@ const Actions = styled.div`
     flex-direction: row;
     justify-content: center;
   }
-`
-
-const ModalContent = styled.div`
-  height: 20rem;
-  width: 100%;
 `
 
 export default PlaceItem

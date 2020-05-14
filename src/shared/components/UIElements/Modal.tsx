@@ -4,9 +4,9 @@ import { CSSTransition } from 'react-transition-group'
 
 import styled from '../../../styled'
 import Backdrop from './Backdrop'
+import Box from './Box'
 
 type Props = {
-  children: ReactNode | string
   footer: ReactNode | string
   footerAlign?: 'left' | 'right'
   header: ReactNode | string
@@ -15,34 +15,35 @@ type Props = {
   onSubmit?: () => void
 }
 
-const ModalOverlay = (props: Props) => {
+const ModalOverlay: React.FC<Props> = ({ children, footer, footerAlign, header, onSubmit }) => {
   const content = (
-    <Box>
+    <ModalContent>
       <Header>
-        <h2>{props.header}</h2>
+        <h2>{header}</h2>
       </Header>
-      <form onSubmit={props.onSubmit ? props.onSubmit : event => event.preventDefault()}>
-        <Content>{props.children}</Content>
-        <Footer className={`footer-${props.footerAlign}`}>{props.footer}</Footer>
+      <form onSubmit={onSubmit ? onSubmit : event => event.preventDefault()}>
+        <Box p={1}>{children}</Box>
+        <Footer className={`footer-${footerAlign}`}>{footer}</Footer>
       </form>
-    </Box>
+    </ModalContent>
   )
 
   return ReactDOM.createPortal(content, document.getElementById('modal-hook') as Element)
 }
 
-const Modal = (props: Props) => {
+const Modal: React.FC<Props> = props => {
+  const { onCancel, isShow } = props
   return (
     <React.Fragment>
-      {props.isShow && <Backdrop onClick={props.onCancel} />}
-      <CSSTransition in={props.isShow} mountOnEnter unmountOnExit timeout={200} classNames="modal">
+      {isShow && <Backdrop onClick={onCancel} />}
+      <CSSTransition in={isShow} mountOnEnter unmountOnExit timeout={200} classNames="modal">
         <ModalOverlay {...props} />
       </CSSTransition>
     </React.Fragment>
   )
 }
 
-const Box = styled.div`
+const ModalContent = styled.div`
   background: ${props => props.theme.color.white};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -87,10 +88,6 @@ const Header = styled.header`
   color: ${props => props.theme.color.white};
 `
 
-const Content = styled.div`
-  padding: 1rem;
-`
-
 const Footer = styled.footer`
   padding: 1rem;
   text-align: center;
@@ -101,11 +98,6 @@ const Footer = styled.footer`
 
   &.footer-right {
     text-align: right;
-  }
-
-  a,
-  button {
-    margin: 0 0.5rem;
   }
 `
 

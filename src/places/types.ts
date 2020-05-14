@@ -6,7 +6,7 @@ export type Place = {
   }
   creator: string
   description: string
-  id: string
+  placeId: string
   imageUrl: string
   title: string
 }

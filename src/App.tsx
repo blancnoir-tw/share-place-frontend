@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import styled from './styled'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
-import User from './user/pages/User'
+import Users from './user/pages/Users'
 import NewPlace from './places/pages/NewPlace'
 import UserPlaces from './places/pages/UserPlaces'
 import MainNavigation from './shared/components/Navigation/MainNavigation'
@@ -10,7 +10,7 @@ import UpdatePlace from './places/pages/UpdatePlace'
 import Auth from './user/pages/Auth'
 import { AuthContext } from './shared/context/auth-context'
 
-const App = () => {
+const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const login = useCallback(() => {
@@ -26,7 +26,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <User />
+          <Users />
         </Route>
         <Route path="/:userId/places">
           <UserPlaces />
@@ -44,7 +44,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <User />
+          <Users />
         </Route>
         <Route path="/:userId/places">
           <UserPlaces />
@@ -68,7 +68,8 @@ const App = () => {
 }
 
 const Main = styled.main`
-  margin-top: 5rem;
+  margin-top: 3.5rem;
+  padding: 1rem;
 `
 
 export default App

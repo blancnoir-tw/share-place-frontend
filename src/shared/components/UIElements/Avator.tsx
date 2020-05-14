@@ -1,23 +1,23 @@
 import React from 'react'
 import styled from '../../../styled'
 
+import Box from '../UIElements/Box'
+
 type Props = {
   image: string
   alt: string
   size?: string
 }
 
-const Avatar = ({ image, alt, size }: Props) => {
+const Avatar: React.FC<Props> = ({ image, alt, size }) => {
   return (
-    <Box size={size}>
+    <StyledBox width={size} height={size}>
       <Image src={image} alt={alt} />
-    </Box>
+    </StyledBox>
   )
 }
 
-const Box = styled.div<{ size?: string }>`
-  width: ${props => props.size || '100%'};
-  height: ${props => props.size || '100%'};
+const StyledBox = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;

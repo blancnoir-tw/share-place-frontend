@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 import { css } from '@emotion/core'
 import styled, { Theme } from '../../../styled'
@@ -12,16 +12,15 @@ type Anchor = {
 type Button = {
   disabled?: boolean
   onClick?: () => void
-  type?: 'submit' | 'reset'
+  type?: 'submit' | 'reset' | 'button'
 }
 
 type Common = {
-  children: string | ReactNode
   size?: 'is-small' | 'is-large'
   color?: 'is-danger' | 'is-inverse'
 }
 
-const Button = (props: Props) => {
+const Button: React.FC<Props> = props => {
   if ('href' in props) {
     return (
       <StyledAnchor className={`${props.size} ${props.color}`} href={props.href}>
@@ -43,7 +42,7 @@ const Button = (props: Props) => {
   return (
     <StyledButton
       className={`${props.size} ${props.color}`}
-      type={props.type}
+      type={props.type || 'button'}
       onClick={props.onClick}
       disabled={props.disabled}
     >
@@ -64,7 +63,6 @@ const commonStyle = (props: StyleProps) => css`
   background: ${props.theme.color.secondary.main};
   color: ${props.theme.color.white};
   cursor: pointer;
-  text-decoration: none;
   display: inline-block;
 
   :focus {
@@ -123,6 +121,7 @@ const StyledButton = styled.button`
 
 const StyledLink = styled.span`
   display: inline-block;
+
   a {
     ${commonStyle}
     display: block

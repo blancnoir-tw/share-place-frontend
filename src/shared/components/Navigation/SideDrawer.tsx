@@ -1,18 +1,17 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 import styled from '../../../styled'
 
 type Props = {
-  children: ReactNode
   onClick: () => void
   show: boolean
 }
 
-const SideDrawer = (props: Props) => {
+const SideDrawer: React.FC<Props> = ({ show, onClick, children }) => {
   const content = (
-    <CSSTransition in={props.show} timeout={200} classNames="slide-in-left" mountOnEnter unmountOnExit>
-      <Drawer onClick={props.onClick}>{props.children}</Drawer>
+    <CSSTransition in={show} timeout={200} classNames="slide-in-left" mountOnEnter unmountOnExit>
+      <Drawer onClick={onClick}>{children}</Drawer>
     </CSSTransition>
   )
 

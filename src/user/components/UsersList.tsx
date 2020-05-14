@@ -8,12 +8,12 @@ type Props = {
   users: User[]
 }
 
-const UserList = ({ users }: Props) => {
+const UserList: React.FC<Props> = ({ users }) => {
   if (users.length === 0) {
     return (
-      <div>
+      <NoUsers>
         <h2>No users found.</h2>
-      </div>
+      </NoUsers>
     )
   }
 
@@ -25,6 +25,16 @@ const UserList = ({ users }: Props) => {
     </List>
   )
 }
+
+const NoUsers = styled.div`
+  display: flex;
+  justify-content: center;
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+`
 
 const List = styled.ul`
   display: flex;

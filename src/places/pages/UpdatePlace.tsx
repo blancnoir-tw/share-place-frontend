@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Place } from '../types'
 import Input from '../../shared/components/FormElements/Input'
 import Button from '../../shared/components/FormElements/Button'
-import Form from '../../shared/components/FormElements/Form'
+import Box from '../../shared/components/UIElements/Box'
 import Card from '../../shared/components/UIElements/Card'
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/utils/validator'
 import { useForm } from '../../shared/hooks/form-hook'
@@ -12,7 +12,7 @@ import styled from '../../styled'
 
 const PLACES: Place[] = [
   {
-    id: 'p1',
+    placeId: 'p1',
     title: '東京タワー',
     description:
       '1958年に竣工された高さ333mの電波塔。東京のシンボルとして知られ、高さ150mと250mの2つの展望台と飲食施設を備える。',
@@ -26,7 +26,7 @@ const PLACES: Place[] = [
     creator: 'u1',
   },
   {
-    id: 'p2',
+    placeId: 'p2',
     title: '東京タワー2',
     description:
       '1958年に竣工された高さ333mの電波塔。東京のシンボルとして知られ、高さ150mと250mの2つの展望台と飲食施設を備える。',
@@ -59,7 +59,7 @@ const UpdatePlace = () => {
     false
   )
 
-  const identifiedPlace = PLACES.find(place => place.id === placeId)
+  const identifiedPlace = PLACES.find(place => place.placeId === placeId)
 
   useEffect(() => {
     if (identifiedPlace) {
@@ -87,55 +87,51 @@ const UpdatePlace = () => {
 
   if (!identifiedPlace) {
     return (
-      <Box>
-        <Card>
-          <CardTitle>Could not find place!</CardTitle>
-        </Card>
-      </Box>
+      <Card textAlign="center">
+        <CardTitle>Could not find place!</CardTitle>
+      </Card>
     )
   }
 
   if (isLoading) {
     return (
-      <Box>
+      <Box textAlign="center">
         <h2>Loading...</h2>
       </Box>
     )
   }
 
   return (
-    <Form onSubmit={placeUpdateSubmitHandler}>
-      <Input
-        id="title"
-        element="input"
-        type="text"
-        validators={[VALIDATOR_REQUIRE()]}
-        label="Title"
-        errorText="Please enter a valid title."
-        onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
-      />
-      <Input
-        id="description"
-        element="textarea"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        label="Description"
-        errorText="Please enter a valid description (min 5 characters)."
-        onInput={inputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
-      />
-      <Button type="submit" disabled={!formState.isValid}>
-        UPDATE PLACE
-      </Button>
-    </Form>
+    <Card>
+      <form onSubmit={placeUpdateSubmitHandler}>
+        <Input
+          inputId="title"
+          element="input"
+          type="text"
+          validators={[VALIDATOR_REQUIRE()]}
+          label="Title"
+          errorText="Please enter a valid title."
+          onInput={inputHandler}
+          initialValue={formState.inputs.title.value}
+          initialValid={formState.inputs.title.isValid}
+        />
+        <Input
+          inputId="description"
+          element="textarea"
+          validators={[VALIDATOR_MINLENGTH(5)]}
+          label="Description"
+          errorText="Please enter a valid description (min 5 characters)."
+          onInput={inputHandler}
+          initialValue={formState.inputs.description.value}
+          initialValid={formState.inputs.description.isValid}
+        />
+        <Button type="submit" disabled={!formState.isValid}>
+          UPDATE PLACE
+        </Button>
+      </form>
+    </Card>
   )
 }
-
-const Box = styled.div`
-  text-align: center;
-`
 
 const CardTitle = styled.h2`
   font-weight: bold;

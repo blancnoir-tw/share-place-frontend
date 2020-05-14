@@ -6,8 +6,8 @@ type Props = {
   onClick: () => void
 }
 
-const Backdrop = (props: Props) => {
-  const content = <Box onClick={props.onClick}></Box>
+const Backdrop: React.FC<Props> = ({ onClick }) => {
+  const content = <Box onClick={onClick}></Box>
   return ReactDOM.createPortal(content, document.getElementById('backdrop-hook') as Element)
 }
 

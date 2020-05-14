@@ -17,6 +17,10 @@ export const styles = css`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }

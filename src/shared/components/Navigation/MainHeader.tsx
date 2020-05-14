@@ -1,12 +1,8 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import styled from '../../../styled'
 
-type Props = {
-  children: ReactNode
-}
-
-const MainHeader = (props: Props) => {
-  return <Header>{props.children}</Header>
+const MainHeader: React.FC = ({ children }) => {
+  return <Header>{children}</Header>
 }
 
 const Header = styled.header`
@@ -14,7 +10,7 @@ const Header = styled.header`
   background: ${props => props.theme.color.primary.main};
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   display: flex;
-  height: 4rem;
+  height: 3.5rem;
   left: 0;
   padding: 0 1rem;
   position: fixed;

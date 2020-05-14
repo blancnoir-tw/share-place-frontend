@@ -1,12 +1,13 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer, useEffect, ComponentProps } from 'react'
 import { css } from '@emotion/core'
 import styled, { Theme } from '../../../styled'
 
 import { validate, Validator } from '../../utils/validator'
+import Box from '../UIElements/Box'
 
 type Props = {
   element: string
-  id: string
+  inputId: string
   label: string
   placeholder?: string
   rows?: number
@@ -16,7 +17,7 @@ type Props = {
   onInput: (id: string, value: string, isvalid: boolean) => void
   initialValue?: string
   initialValid?: boolean
-}
+} & ComponentProps<typeof Box>
 
 type State = {
   value: string
@@ -45,41 +46,53 @@ const inputReducer = (state: State, action: Action) => {
   }
 }
 
-const Input = (props: Props) => {
+const Input: React.FC<Props> = ({
+  element,
+  inputId,
+  label,
+  placeholder,
+  rows,
+  type,
+  errorText,
+  validators,
+  onInput,
+  initialValue,
+  initialValid,
+  ...boxProps
+}) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || '',
-    isValid: props.initialValid || false,
+    value: initialValue || '',
+    isValid: initialValid || false,
     isTouched: false,
   })
 
-  const { onInput, id } = props
   const { value, isValid } = inputState
   useEffect(() => {
-    onInput(id, value, isValid)
-  }, [id, value, isValid, onInput])
+    onInput(inputId, value, isValid)
+  }, [inputId, value, isValid, onInput])
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch({ type: 'CHANGE', val: event.target.value, validators: props.validators })
+    dispatch({ type: 'CHANGE', val: event.target.value, validators })
   }
 
   const touchHandler = () => {
     dispatch({ type: 'TOUCH' })
   }
 
-  const input =
-    props.element === 'input' ? (
+  const inputElement =
+    element === 'input' ? (
       <StyledInput
-        id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
+        id={inputId}
+        type={type}
+        placeholder={placeholder}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
       />
     ) : (
       <StyledTextarea
-        id="id"
-        rows={props.rows || 3}
+        id={inputId}
+        rows={rows || 3}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
@@ -87,11 +100,11 @@ const Input = (props: Props) => {
     )
 
   return (
-    <Box className={`${!inputState.isValid && inputState.isTouched && 'is-invalid'}`}>
-      <Label htmlFor={props.id}>{props.label}</Label>
-      {input}
-      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
-    </Box>
+    <StyledBox isInvalid={!inputState.isValid && inputState.isTouched} {...boxProps}>
+      <Label htmlFor={inputId}>{label}</Label>
+      {inputElement}
+      {!inputState.isValid && inputState.isTouched && <p>{errorText}</p>}
+    </StyledBox>
   )
 }
 
@@ -99,36 +112,32 @@ type StyleProps = {
   theme: Theme
 }
 
-const commonStyle = (props: StyleProps) => css`
+const commonStyle = ({ theme }: StyleProps) => css`
   display: block;
   width: 100%;
   font: inherit;
-  border: 1px solid ${props.theme.color.gray.main};
-  background: ${props.theme.color.white};
+  border: 1px solid ${theme.color.gray.main};
+  background: ${theme.color.white};
   padding: 0.15rem 0.25rem;
 
   :focus {
     outline: none;
-    background: ${props.theme.color.gray.light};
-    border-color: ${props.theme.color.primary.light};
+    background: ${theme.color.gray.light};
+    border-color: ${theme.color.primary.light};
   }
 `
 
-const Box = styled.div`
-  margin: 1rem 0;
+const StyledBox = styled(Box)<{ isInvalid?: boolean }>`
+  input,
+  textarea {
+    background: ${props => props.isInvalid && props.theme.color.white};
+    border-color: ${props => props.isInvalid && props.theme.color.error.main};
+    margin-bottom: 0.5rem;
+  }
 
-  &.is-invalid {
-    input,
-    textarea {
-      border-color: ${props => props.theme.color.error.main};
-      background: ${props => props.theme.color.white};
-      margin-bottom: 0.5rem;
-    }
-
-    label,
-    p {
-      color: red;
-    }
+  label,
+  p {
+    color: ${props => props.isInvalid && props.theme.color.error.main};
   }
 `
 
